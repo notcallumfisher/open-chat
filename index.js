@@ -1,4 +1,4 @@
-// callum fisher - 2026.01.17
+// callum fisher - 2026.01.17 - 2026.01.18
 
 import { Server } from 'socket.io';
 import express from 'express';
@@ -69,7 +69,8 @@ const updateClients = () => {
     clients.forEach(client => {
         filteredClients.push({
             id: client.id,
-            n: client.name
+            n: client.name,
+			c: client.colour
         });
     });
     io.emit('max', maxClients);
@@ -80,8 +81,8 @@ const sayBye = (client, code) => {
     if (!code) code = 'kick';
     client.socket.emit('bye', code);
     client.socket.disconnect();
-    clients.splice(clients.indexOf(client), 1);
-    updateClients();
+   // clients.splice(clients.indexOf(client), 1);
+// updateClients();
 }
 
 io.on('connection', socket => {
