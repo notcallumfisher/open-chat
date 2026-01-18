@@ -37,7 +37,7 @@ const  startOpenChat = () => {
     openChat = {
         needChistory: true,
         maxClients: 20,
-        client: io("https://open-chat.ondrender.com"),
+        client: io("https://open-chat-w4m2.onrender.com/"),
         addToChat: msg => {
             let chat = document.getElementById("openChat");
             chat.innerHTML = `${chat.innerHTML}<br>${msg.n}: ${msg.m}`;
@@ -146,7 +146,7 @@ const  startOpenChat = () => {
 
     openChat.buttonTracker = [];
 
-    openChat.newButton = (label, onclick) => { // https://sebhastian.com/javascript-create-button/
+    openChat.newButton = (label, onclick) => {
         return new Promise ((resolve, reject) => {
             let btn = document.createElement("a");
             btn.classList.add("button");
