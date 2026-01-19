@@ -48,11 +48,36 @@ let chatHistory = [{
 	'm': 'Hello, send a nice message :-)'
 }];
 
-let maxIdleTime = 60000;
+let maxIdleTime = 300000;
 let maxClientsPerIPA = 2;
 let maxClients = 20;
 let clients = [];
-let clientColours = ['red','yellow','gray','cyan'];
+let clientColours = ['red','green','yellow','gray','cyan'];
+let adjectives = [
+	'happy',
+	'angry',
+	'quick',
+	'green',
+	'red',
+	'pink'
+];
+let nouns = [
+	'leopard',
+	'dog',
+	'potato',
+	'panther',
+	'slab',
+	'leg'
+];
+let forgeName = () => {
+	let adjective = adjectives[Math.floor(Math.random() * adjectives.length)];
+	adjective = adjective.split('');
+	adjective[0] = adjective[0].toUpperCase();
+	let noun = nouns[Math.floor(Math.random() * nouns.length)];
+	noun = noun.split('');
+	noun[0] = noun[0].toUpperCase();
+	return `${adjective}${noun}${Math.floor(Math.random() * 99)}`;
+}
 
 const forgeID = () => {
     return Math.floor(Math.random() * 90000);
@@ -107,7 +132,7 @@ io.on('connection', socket => {
         lastMessage: '',
         ipa: ipa
     }
-    client.name = `Guest${client.id}`;
+    client.name = forgeName();
     clients.push(client);
     if (beVerbose) console.log(`connect #${client.id}`);
     updateClients();
