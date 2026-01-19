@@ -76,7 +76,7 @@ let forgeName = () => {
 	let noun = nouns[Math.floor(Math.random() * nouns.length)];
 	noun = noun.split('');
 	noun[0] = noun[0].toUpperCase();
-	return `${adjective.join()}${noun.join()}${Math.floor(Math.random() * 99)}`;
+	return `${adjective.join('')}${noun.join('')}${Math.floor(Math.random() * 99)}`;
 }
 
 const forgeID = () => {
