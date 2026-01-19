@@ -116,6 +116,7 @@ const sayBye = (client, code) => {
 
 io.on('connection', socket => {
     let ipa = socket.handshake.headers['x-forwarded-for'] || socket.handshake.address;
+	console.log(ipa);
     if (checkIPA(ipa) >= maxClientsPerIPA) {
         socket.emit('bye', 'busy');
         socket.disconnect();
