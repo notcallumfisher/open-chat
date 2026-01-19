@@ -138,9 +138,11 @@ io.on('connection', socket => {
     }
     client.name = forgeName();
 	if (clientCache[ipa]) {
+		console.log(ipa);
 		client.id = clientCache[ipa].id;
 		client.name = clientCache[ipa].name;
 		client.colour = clientCache[ipa].colour;
+		// if (checkIPA(ipa) !== 0) // stop double connections
 	} else {
 		clientCache[ipa] = {
 			id: client.id,
