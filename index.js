@@ -48,6 +48,9 @@ let chatHistory = [{
 	'm': 'Hello, send a nice message :-)'
 }];
 
+let maxClientCache = 100;
+let clientCache = {};
+
 let maxIdleTime = 300000;
 let maxClientsPerIPA = 2;
 let maxClients = 20;
@@ -69,6 +72,7 @@ let nouns = [
 	'slab',
 	'leg'
 ];
+
 let forgeName = () => {
 	let adjective = adjectives[Math.floor(Math.random() * adjectives.length)];
 	adjective = adjective.split('');
@@ -133,6 +137,18 @@ io.on('connection', socket => {
         ipa: ipa
     }
     client.name = forgeName();
+	if (clientCache[ipa]) {
+		client.id = clientCache[ipa].id;
+		client.name = clientCache[ipa].name;
+		client.colour = clientCache[ipa].colour;
+	} else {
+		clientCache[ipa] = {
+			id: client.id,
+			name: client.name,
+			colour: client.colour
+		}
+		if (Object.keys(clientCache).length > maxClientCache) delete clientCache[0];
+	}
     clients.push(client);
     if (beVerbose) console.log(`connect #${client.id}`);
     updateClients();
@@ -155,10 +171,8 @@ io.on('connection', socket => {
 
         // update lastActive:
         let now = Date.now();
-        if (now - lastActive < 1000) {
-            autoMod.chaos ++;
-            return;
-        }
+        if (now - lastActive < 1000) return;
+
         client.lastActive = now;
 
         // filtering & moderation:
