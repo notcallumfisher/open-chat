@@ -2,7 +2,7 @@ Render Chat is an simple Socket.IO-based chat server hosted on Render's free tie
 
 Clients are assigned unique names and colours for differentiation.
 
-These identities are then stored in memory, which is erased when the server closes.
+These identities are cached per IP address in memory, which is erased when the server closes.
 
 Render closes the server after a period of inactivity.
 
